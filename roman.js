@@ -32,9 +32,6 @@ var convert = function(input) {
 }
 
 
-
-
-
 // ===========================================
 // CONVERT TO ROMAN NUMERAL
 // ===========================================
@@ -54,38 +51,36 @@ mapNumberToRoman = function(number) {
 }
 
 convertNumberToRoman = function(number, i, length) {
-  var diff = (length - (i + 1))
-  var val, boundaries;
+  var val, diff = (length - (i + 1))
 
-  if (diff === 3) {
-    boundaries = {
-      'low': 'M',
-      'mid': '?',
-      'high': '??',
-    }
-  } else if (diff === 2) {
-    boundaries = {
-      'low': 'C',
-      'mid': 'D',
-      'high': 'M',
-    }
-  } else if (diff === 1) {
-    boundaries = {
-      'low': 'X',
-      'mid': 'L',
-      'high': 'C',
-    }
-  } else if (diff === 0) {
-    boundaries = {
-      'low': 'I',
-      'mid': 'V',
-      'high': 'X',
-    }
-  } else {
-    throw new Error(errors.can_not.number_too_large);
+  switch (diff) {
+    case 3:
+     return constructRomanNumeral(number, {
+       'low': 'M',
+       'mid': '?',
+       'high': '??',
+       });
+    case 2:
+     return constructRomanNumeral(number, {
+       'low': 'C',
+       'mid': 'D',
+       'high': 'M',
+       });
+    case 1:
+     return constructRomanNumeral(number, {
+       'low': 'X',
+       'mid': 'L',
+       'high': 'C',
+       });
+    case 0:
+     return constructRomanNumeral(number, {
+       'low': 'I',
+       'mid': 'V',
+       'high': 'X',
+       });
+    default:
+      throw new Error(errors.can_not.number_too_large);
   }
-
-  return constructRomanNumeral(number, boundaries);
 }
 
 constructRomanNumeral = function(number, bound) {
@@ -120,13 +115,10 @@ constructRomanNumeral = function(number, bound) {
 mapNumberToArray = function(number) {
   var string = number.toString(10); // define the base radix
   var arr = string.split("");
-  var numbers = arr.map(function(v) { return parseInt(v) }); // map values back to numbers
+  var numbers = arr.map(function(v) { return parseInt(v) });
 
   return numbers;
 }
-
-
-
 
 
 // ===========================================
@@ -217,8 +209,6 @@ capableOfSubtraction = function(prev, current) {
     return false;
   }
 }
-
-
 
 
 // ===========================================
